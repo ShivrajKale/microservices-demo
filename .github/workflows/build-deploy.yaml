@@ -45,9 +45,15 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build \
-            -t $ECR_REGISTRY/boutique/${{ matrix.service }}:${{ github.sha }} \
-            ./src/${{ matrix.service }}
+          if [ "${{ matrix.service }}" = "cartservice" ]; then
+            docker build \
+              -t $ECR_REGISTRY/boutique/${{ matrix.service }}:${{ github.sha }} \
+              ./src/${{ matrix.service }}/src
+          else
+            docker build \
+              -t $ECR_REGISTRY/boutique/${{ matrix.service }}:${{ github.sha }} \
+              ./src/${{ matrix.service }}
+          fi
 
       - name: Scan with Trivy
         uses: aquasecurity/trivy-action@master
