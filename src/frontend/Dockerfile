@@ -43,3 +43,4 @@ ENV GOTRACEBACK=single
 EXPOSE 8080
 ENTRYPOINT ["/src/server"]
 # CI/CD pipeline test
+# trivy fix
